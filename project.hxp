@@ -488,12 +488,12 @@ class Project extends HXProject {
 
 		// Should be true only on web builds.
 		// Audio context issues only exist there.
-		TOUCH_HERE_TO_PLAY.apply(this, isWeb());
+		// TOUCH_HERE_TO_PLAY.apply(this, isWeb());
 
 		// Should be true only on web builds.
 		// Enabling embedding and preloading is required to preload assets properly.
 		EMBED_ASSETS.apply(this, isWeb());
-		PRELOAD_ALL.apply(this, !isWeb());
+		PRELOAD_ALL.apply(this,   !isWeb());
 
 		// Should be true except on MacOS.
 		// File drop doesn't work there.
