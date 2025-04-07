@@ -1,0 +1,52 @@
+name: Mobile + Release
+on: workflow_dispatch
+
+permissions:
+  contents: write
+  discussions: write
+
+env:
+  PROJECT_NAME: Funkin
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    strategy:
+      matrix:
+        include:
+
+          - name: HTML5
+            os: macos-15
+            buildArgs: "ios -final -nosign -D officialBuild"
+            artifactName: Html5build
+            artifactPath: "export/release/html5/bin/*"
+    uses: ./.github/workflows/build.yml
+    with:
+        name: ${{ matrix.name }}
+        os: ${{ matrix.os }}
+        buildArgs: ${{ matrix.buildArgs }}
+        artifactName: ${{ matrix.artifactName }}
+        artifactPath: ${{ matrix.artifactPath }}
+
+  Releaser:
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Download iOS Build
+        uses: actions/download-artifact@main
+        with:
+           name: iOSBuild
+           path: ${{ github.workspace }}
+
+      - name: Zip iOS Build For Release
+        run: zip -r /home/runner/${{ env.PROJECT_NAME }}-iOS.zip ${{ github.workspace }}/${{ env.PROJECT_NAME }}.ipa
+
+      - name: Publish The Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "0.6.2"
+          tag_name: "0.6.2"
+          prerelease: false
+          files: |
+            /home/runner/*.zip
