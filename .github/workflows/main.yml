@@ -14,10 +14,9 @@ jobs:
     strategy:
       matrix:
         include:
-
           - name: HTML5
             os: macos-15
-            buildArgs: "ios -final -nosign -D officialBuild"
+            buildArgs: "html5 -DFEATURE_GHOST_TAPPING"
             artifactName: Html5build
             artifactPath: "export/release/html5/bin/*"
     uses: ./.github/workflows/build.yml
@@ -36,11 +35,11 @@ jobs:
       - name: Download iOS Build
         uses: actions/download-artifact@main
         with:
-           name: iOSBuild
+           name: HTMLBuild
            path: ${{ github.workspace }}
 
       - name: Zip iOS Build For Release
-        run: zip -r /home/runner/${{ env.PROJECT_NAME }}-iOS.zip ${{ github.workspace }}/${{ env.PROJECT_NAME }}.ipa
+        run: zip -r /home/runner/${{ env.PROJECT_NAME }}-HTML5.zip ${{ github.workspace }}/${{ env.PROJECT_NAME }}.zip
 
       - name: Publish The Release
         uses: softprops/action-gh-release@v2
