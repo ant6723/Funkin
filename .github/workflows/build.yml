@@ -44,18 +44,10 @@ jobs:
         run: |
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
-
-      - name: Fix Lime
+      - name: Get Submodules
         run: |
-          sudo apt update
-          sudo apt install libvlc-dev libvlccore-dev libvlccore9
-          cd .haxelib/lime/git
-          git submodule init
-          git submodule sync
-          git submodule update
-          cd ../../..
-          sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libpulse-dev -y
-          haxelib run lime rebuild cpp -64 -release -clean
+          git submodule update --init --recursive
+          git submodule update --remote
 
       - name: Compile
         run: haxelib run lime build ${{ inputs.buildArgs }}
