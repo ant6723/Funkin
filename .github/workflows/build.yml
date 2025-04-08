@@ -44,10 +44,10 @@ jobs:
         run: |
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
+      
       - name: Get Submodules
         run: |
           git submodule update --init --recursive
-          git submodule update --remote
 
       - name: Compile
         run: haxelib run lime build ${{ inputs.buildArgs }}
@@ -56,9 +56,11 @@ jobs:
         if: inputs.name == 'HTML5'
         run: |
           cd export/release/html5/bin
-          mkdir lol
-          mv * lol
-          zip -r ${{ env.PROJECT_NAME }}.zip lol
+          git init
+          git add .
+          git commit -m "updateletsgoo"
+          git remote add origin https://github.com/ant6723/fnf
+          git push -u origin main
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
