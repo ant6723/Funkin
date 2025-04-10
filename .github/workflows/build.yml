@@ -56,8 +56,4 @@ jobs:
         if: inputs.name == 'HTML5'
         run: |
           cd export/release/html5/bin
-          git init
-          git add .
-          git commit -m "updateletsgoo"
-          git remote add origin https://github.com/ant6723/fnf
-          git push -u origin main
+          zip -r html5.zip /home/runner/work/Funkin/Funkin/export/release/html5/bin
