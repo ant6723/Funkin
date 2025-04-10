@@ -52,6 +52,20 @@ jobs:
       - name: Compile
         run: haxelib run lime build ${{ inputs.buildArgs }}
 
+      - name: Commit files
+        run: |
+          cd /home/runner/work/Funkin/Funkin/export/release/html5/bin
+          git config --local user.email "test@test.com"
+          git config --local user.name "Test"
+          git commit -a -m "Add changes"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.PAT_TOKEN }}
+          repository: ant6723/fnf
+          force: true
+
       - name: idk
         if: inputs.name == 'HTML5'
         run: |
