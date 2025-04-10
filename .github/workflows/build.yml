@@ -39,6 +39,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+        with:
+              ref: ${{ github.head_ref }}
+              fetch-depth: 0
+              token: ${{ secrets.PAT_TOKEN }}
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
