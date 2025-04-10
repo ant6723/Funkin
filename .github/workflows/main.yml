@@ -18,7 +18,7 @@ jobs:
             os: macos-15
             buildArgs: "html5 -DFEATURE_GHOST_TAPPING"
             artifactName: Html5build
-            artifactPath: "export/release/html5/bin/*"
+            artifactPath: "export/release/html5/bin/*.zip"
     uses: ./.github/workflows/build.yml
     with:
         name: ${{ matrix.name }}
@@ -35,7 +35,7 @@ jobs:
       - name: Download iOS Build
         uses: actions/download-artifact@main
         with:
-           name: HTMLBuild
+           name: Html5Build
            path: ${{ github.workspace }}
 
       - name: Zip iOS Build For Release
