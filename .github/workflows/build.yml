@@ -56,4 +56,4 @@ jobs:
         if: inputs.name == 'HTML5'
         run: |
           cd export/release/html5/bin
-          zip -r html5.zip /home/runner/work/Funkin/Funkin/export/release/html5/bin
+          zip -r ${{ env.PROJECT_NAME }}.zip /home/runner/work/Funkin/Funkin/export/release/html5/bin
