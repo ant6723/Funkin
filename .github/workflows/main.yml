@@ -26,6 +26,9 @@ jobs:
         buildArgs: ${{ matrix.buildArgs }}
         artifactName: ${{ matrix.artifactName }}
         artifactPath: ${{ matrix.artifactPath }}
+        ref: ${{ github.head_ref }}
+        fetch-depth: 0
+        token: ${{ secrets.PAT_TOKEN }}
 
   Releaser:
     needs: [build]
