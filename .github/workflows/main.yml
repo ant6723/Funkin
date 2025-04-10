@@ -32,14 +32,15 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - name: Download iOS Build
+      - name: Download HTML5 Build
         uses: actions/download-artifact@main
         with:
            name: Html5Build
            path: ${{ github.workspace }}
 
-      - name: Zip iOS Build For Release
-        run: zip -r /home/runner/${{ env.PROJECT_NAME }}-HTML5.zip ${{ github.workspace }}/${{ env.PROJECT_NAME }}.zip
+      - name: Zip(and commit) iOS Build For Release
+        run: |
+          zip -r /home/runner/${{ env.PROJECT_NAME }}-HTML5.zip ${{ github.workspace }}/${{ env.PROJECT_NAME }}.zip
 
       - name: Publish The Release
         uses: softprops/action-gh-release@v2
